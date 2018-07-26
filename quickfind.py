@@ -7,9 +7,12 @@ class QuickFind(object):
 
     def connected(self, p, q):
         'find if two elements are connected'
-        if self.d[p] == self.d[q]:
-            return True
-        return False
+        # This is not good practice (I left it so I won't forget):
+        #if self.d[p] == self.d[q]:
+        #    return True
+        #return False
+        # Instead:
+        return self.d[p] == self.d[q]
 
     def union(self, p, q):
         'merge two elements by equaling their values'
@@ -20,8 +23,7 @@ class QuickFind(object):
                 if self.d[indx] == p_indx:
                     self.d[indx] = q_indx
 
-# testing function union
-
+# Initial testing
 def test1():
     'testing both operations / not unit testing here :('
     k = QuickFind(10)
@@ -39,4 +41,3 @@ def test1():
     assert k.connected(7,8) == False, "Test failed"
     print("Test passed")
 
-#test1()
