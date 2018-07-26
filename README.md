@@ -1,4 +1,4 @@
-** Coursera Algorithms, part 1
+# Coursera Algorithms, part 1
 
 About this Course
 
