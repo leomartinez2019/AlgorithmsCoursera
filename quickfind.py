@@ -1,6 +1,6 @@
 # Quick find algorithm from Coursera course
 
-class Quicko(object):
+class QuickFind(object):
     def __init__(self, size):
         self.d = list(range(size))
         self.size = size
@@ -22,9 +22,9 @@ class Quicko(object):
 
 # testing function union
 
-def test2():
+def test1():
     'testing both operations / not unit testing here :('
-    k = Quicko(10)
+    k = QuickFind(10)
     k.union(4,3)
     print(k.d)
     k.union(3,8)
@@ -39,4 +39,4 @@ def test2():
     assert k.connected(7,8) == False, "Test failed"
     print("Test passed")
 
-test2()
+#test1()
