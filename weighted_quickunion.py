@@ -20,16 +20,18 @@ class WeightedQuickUnion(object):
     # Have to change all roots to the upper root
     def union(self, p, q):
         'merge two elements by equaling their values'
-        p_root = self.root(p)
-        q_root = self.root(q)
-        if self.counter[p_root] <= self.counter[q_root]:
-            self.d[p_root] = q_root
-            self.counter[q_root] += self.counter[p_root]
-            self.counter[p_root] = 0
+        i = self.root(p)
+        j = self.root(q)
+        if i == j:
+            return
+        if self.counter[i] < self.counter[j]:
+            self.d[i] = j
+            self.counter[j] += self.counter[i]
+            #self.counter[q_root] = 0
         else:
-            self.d[q_root] = p_root
-            self.counter[p_root] += self.counter[q_root]
-            self.counter[q_root] = 0
+            self.d[j] = i
+            self.counter[i] += self.counter[j]
+            #self.counter[p_root] = 0
 
 def test1():
     instancia = WeightedQuickUnion(10)
@@ -45,7 +47,8 @@ def test1():
     instancia.union(5,0)
     instancia.union(7,2)
     instancia.union(6,1)
-    #instancia.union(7,3)
+    instancia.union(7,2)
+    instancia.union(7,3)
     print("Tests passed")
     print(instancia.d)
     print(instancia.counter)
