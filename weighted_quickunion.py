@@ -1,4 +1,4 @@
-# Quick find algorithm from Coursera course
+# Weighted quick union algorithm from Coursera course
 
 class WeightedQuickUnion(object):
     def __init__(self, size):
@@ -16,8 +16,6 @@ class WeightedQuickUnion(object):
         'find if two elements are connected'
         return self.root(p) == self.root(q)
 
-    # TODO: make sure to merge small trees to bigger trees correctly
-    # Have to change all roots to the upper root
     def union(self, p, q):
         'merge two elements by equaling their values'
         i = self.root(p)
@@ -27,11 +25,10 @@ class WeightedQuickUnion(object):
         if self.counter[i] < self.counter[j]:
             self.d[i] = j
             self.counter[j] += self.counter[i]
-            #self.counter[q_root] = 0
         else:
             self.d[j] = i
             self.counter[i] += self.counter[j]
-            #self.counter[p_root] = 0
+
 
 def test1():
     instancia = WeightedQuickUnion(10)
@@ -53,4 +50,4 @@ def test1():
     print(instancia.d)
     print(instancia.counter)
 
-test1()
+test_lunion()
