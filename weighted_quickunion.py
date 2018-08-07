@@ -9,6 +9,7 @@ class WeightedQuickUnion(object):
         'find root of an index'
         indx = num
         while indx != self.d[indx]:
+            self.d[indx] = self.d[self.d[indx]]
             indx = self.d[indx]
         return indx
 
@@ -50,4 +51,4 @@ def test1():
     print(instancia.d)
     print(instancia.counter)
 
-test_lunion()
+test1()
