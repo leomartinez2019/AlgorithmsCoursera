@@ -2,8 +2,8 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.NoSuchElementException;
 
-//public class Deque<Item> implements Iterable<Item> {
-public class Deque<Item> {
+public class Deque<Item> implements Iterable<Item> {
+//public class Deque<Item> {
 
     // Mantener dos pointers: head y tail
     int head = 0;
@@ -47,29 +47,29 @@ public class Deque<Item> {
         if (head < 0)  head += it.length;
         tail = (head + N) % it.length;
       }
-      StdOut.print("head(addFirst): ");
-      StdOut.println(head);
-      StdOut.print("tail(addFirst): ");
-      StdOut.println(tail);
+      //StdOut.print("head(addFirst): ");
+      //StdOut.println(head);
+      //StdOut.print("tail(addFirst): ");
+      //StdOut.println(tail);
       it[head] = item;
     }
 
     // remove and return the item from the last
     public Item removeLast() {
       if (N == 0) throw new NoSuchElementException("nada aquí...");
-      StdOut.print("tail: ");
-      StdOut.println(tail);
+      //StdOut.print("tail: ");
+      //StdOut.println(tail);
       tail = (tail - 1) % it.length;
       if (tail < 0)  tail += it.length; 
-      StdOut.print("tail: ");
-      StdOut.println(tail);
+      //StdOut.print("tail: ");
+      //StdOut.println(tail);
       Item item = it[tail];
       it[tail] = null;
       N--;      
       if (N > 0 && N == it.length / 4)
         resize(it.length / 2);
-      StdOut.print("tail: ");
-      StdOut.println(tail);
+      //StdOut.print("tail: ");
+      //StdOut.println(tail);
       return item;
     }
 
@@ -88,9 +88,21 @@ public class Deque<Item> {
     }
 
     // return an iterator over items in order from front to back
-    //public Iterator<Item> iterator() {
+    public Iterator<Item> iterator() {
+      return new ListIterator();
+    }
 
-    //}
+    public class ListIterator implements Iterator<Item> {
+      private int indx = head;
+      public boolean hasNext() {
+        return it[(indx + 1) % it.length] != null;
+      }
+      public Item next() {
+        Item item = it[indx];
+        indx = (indx + 1) % it.length;
+        return item;
+      }
+    }
 
     private void resize(int capacity) {
       Item[] copy = (Item[]) new Object[capacity];
@@ -116,66 +128,6 @@ public class Deque<Item> {
     }
 
     // unit testing (required)
-    public static void test1() {
-      Deque<String> d = new Deque<>();
-      d.addLast("Bardzo1");
-      StdOut.println(d);
-      d.addLast("Bardzo2");
-      StdOut.println(d);
-      d.removeFirst();
-      StdOut.println(d);
-      d.addLast("Bardzo3");
-      StdOut.println(d);
-      d.removeFirst();
-      d.addLast("Bardzo4");
-      StdOut.println(d);
-      //d.removeFirst();
-      d.addLast("Bardzo5");
-      d.addLast("Bardzo6");
-      d.addLast("Bardzo7");
-      d.addLast("Bardzo8");
-      d.removeFirst();
-      d.removeFirst();
-      d.removeFirst();
-      //StdOut.println(d.isEmpty());
-      //StdOut.println(d.size());
-      StdOut.println(d);
-    }
-
-    public static void test2() {
-      Deque<String> d = new Deque<>();
-      d.addLast("queso");
-      d.addFirst("Papa");
-      d.addLast("coco");
-      d.addLast("zapote");
-      d.addFirst("yuca");
-      d.addFirst("arroz");
-      d.addFirst("aceite");
-      d.addFirst("ñame");
-      //d.addLast("corozo");
-      StdOut.println(d);
-
-    }
-
-    public static void test3() {
-      Deque<String> d = new Deque<>();
-      d.addFirst("Papa");
-      StdOut.println(d);
-      d.addLast("coco");
-      StdOut.println(d);
-      d.removeLast();
-      StdOut.println(d);
-      d.addLast("zapote");
-      StdOut.println(d);
-      d.addFirst("yuca");
-      StdOut.println(d);
-      d.removeLast();
-      StdOut.println(d);
-      d.addFirst("arroz");
-      StdOut.println(d);
-      d.addLast("corozo");
-      StdOut.println(d);
-    }
 
     // Test reading from a text file
     // Text file like: green yellow blue ^ $ pink 
@@ -204,10 +156,43 @@ public class Deque<Item> {
       }
     }
 
+    private static Deque test7() {
+      Random num = new Random();
+      int randNum;
+      Deque<String> d = new Deque<>();
+      while (!StdIn.isEmpty()) {
+        String s = StdIn.readString();
+        randNum = num.nextInt(100);
+        if (randNum < 50) {
+          d.addFirst(s);
+        }
+        else {
+          d.addLast(s);
+        }
+      }
+      return d;
+    }
+
+    public static void test5() {
+      Deque<String> d = new Deque<>();
+      d.addLast("b");
+      d.addLast("c");
+      d.addFirst("qs");
+      d.addLast("u");
+      d.addLast("y");
+      d.addFirst("bw");
+      d.addLast("f");
+      d.addFirst("e");
+      for (String elem : d) StdOut.println(elem);
+    }
+
+    public static void test6() {
+      Deque<String> d = test7();      
+      for (String elem : d) StdOut.println(elem);
+    }
+
     public static void main(String[] args) {
-      //test1();
-      //test2();
-      test4();
+      test6();
     }
 
 }
