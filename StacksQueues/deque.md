@@ -1,7 +1,6 @@
 # Deque code in java
 
-´´´java
-
+```java
 import java.lang.IllegalArgumentException;
 import java.lang.UnsupportedOperationException;
 import java.util.Iterator;
@@ -152,4 +151,4 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
 }
-´´´
+```
