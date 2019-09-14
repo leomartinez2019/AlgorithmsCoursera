@@ -1,5 +1,5 @@
-import java.lang.IllegalArgumentException;
-import java.lang.UnsupportedOperationException;
+//import java.lang.IllegalArgumentException;
+//import java.lang.UnsupportedOperationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -28,23 +28,20 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // add the item
     public void enqueue(Item item) {
       if (item == null) throw new IllegalArgumentException("no null arguments allowed");
-      q[tail] = item;
+      q[tail++] = item;
+      if (tail == q.length) tail = 0;
       N++;
       if (N == q.length) resize(q.length * 2);
-      tail = (head + N) % q.length;
     }
 
     // remove and return a random item
     public Item dequeue() {
       if (N == 0) throw new NoSuchElementException("nothing here...");
       Item item = q[head];
-      q[head] = null;
-      head = (head + 1) % q.length;
+      q[head++] = null;
+      if (head == q.length) head = 0;
       N--;
-      if (N > 0 && N == q.length / 4) {
-        resize(q.length / 2);
-        tail = head + N;
-      }
+      if (N > 0 && N == q.length / 4) resize(q.length / 2);
       return item;
     }
 

@@ -1,5 +1,5 @@
-import java.lang.IllegalArgumentException;
-import java.lang.UnsupportedOperationException;
+//import java.lang.IllegalArgumentException;
+//import java.lang.UnsupportedOperationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -30,38 +30,31 @@ public class Deque<Item> implements Iterable<Item> {
     // add the item to the back
     public void addLast(Item item) {
       if (item == null) throw new IllegalArgumentException("no null arguments allowed");
-      it[tail] = item;
+      it[tail++] = item;
+      if (tail == it.length) tail = 0;
       N++;
       if (N == it.length) resize(it.length * 2);
-      tail = (head + N) % it.length;
     }
 
     // add the item to the front
     public void addFirst(Item item) {
       if (item == null) throw new IllegalArgumentException("no null arguments allowed");
-      N++;
-      if (N == it.length) {
-        resize(it.length * 2);
-        tail = head + N;
-      }
-      if (it[head] != null) {
-        head = (head - 1) % it.length;
-        if (head < 0)  head += it.length;
-        tail = (head + N) % it.length;
-      }
+      head--;
+      if (head < 0) head += it.length;
       it[head] = item;
+      N++;
+      if (N == it.length) resize(it.length * 2);
     }
 
     // remove and return the item from the last
     public Item removeLast() {
       if (N == 0) throw new NoSuchElementException("nothing here...");
-      tail = (tail - 1) % it.length;
+      tail--;
       if (tail < 0)  tail += it.length; 
       Item item = it[tail];
       it[tail] = null;
       N--;      
-      if (N > 0 && N == it.length / 4)
-        resize(it.length / 2);
+      if (N > 0 && N == it.length / 4) resize(it.length / 2);
       return item;
     }
 
@@ -69,13 +62,10 @@ public class Deque<Item> implements Iterable<Item> {
     public Item removeFirst() {
       if (N == 0) throw new NoSuchElementException("nada aquí...");
       Item item = it[head];      
-      it[head] = null;
-      head = (head + 1) % it.length;
+      it[head++] = null;
+      if (head == it.length) head = 0;
       N--;
-      if (N > 0 && N == it.length / 4) {
-        resize(it.length / 2);
-        tail = head + N;
-      }
+      if (N > 0 && N == it.length / 4) resize(it.length / 2);
       return item;
     }
 
@@ -134,10 +124,10 @@ public class Deque<Item> implements Iterable<Item> {
     // unit testing (required)
     public static void main(String[] args) {
       Deque<String> d = new Deque<>();
-      //d.addFirst("a");
-      //d.addLast("z");
-      //d.removeFirst();
-      //d.removeLast();
+      d.addFirst("a");
+      d.addLast("z");
+      d.removeFirst();
+      d.removeLast();
       d.addFirst("aa");
       d.addLast("bb");
       d.addLast("cc");
