@@ -1,16 +1,16 @@
-//import java.lang.IllegalArgumentException;
-//import java.lang.UnsupportedOperationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdIn;
 
 public class Deque<Item> implements Iterable<Item> {
 
     // Mantener dos pointers: head y tail
-    int head = 0;
-    int tail = 0;
+    private int head = 0;
+    private int tail = 0;
 
-    Item[] it;
-    int N = 0;
+    private Item[] it;
+    private int N = 0;
 
     // construct an empty deque
     public Deque() {
@@ -74,23 +74,15 @@ public class Deque<Item> implements Iterable<Item> {
       return new ListIterator();
     }
 
-    public class ListIterator implements Iterator<Item> {
+    private class ListIterator implements Iterator<Item> {
       private int indx = head;
       public boolean hasNext() {
-        //StdOut.print("hasNext - indx: ");
-        //StdOut.println(indx);
         return it[(indx) % it.length] != null;
       }
       public Item next() {
         if (it[indx] == null) throw new NoSuchElementException();
         Item item = it[indx];
-        //StdOut.print("indx: ");
-        //StdOut.println(indx);
         indx = (indx + 1) % it.length;
-        //StdOut.print("indx: ");
-        //StdOut.println(indx);
-        //StdOut.print("item: ");
-        //StdOut.println(item);
         return item;
       }
       public void remove() {

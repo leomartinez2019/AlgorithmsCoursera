@@ -1,3 +1,6 @@
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdIn;
+
 public class Permutation {
    public static void main(String[] args) {
      int valor = Integer.parseInt(args[0]);
@@ -7,6 +10,5 @@ public class Permutation {
        r.enqueue(s);
      }
      for (int k = 0; k < valor; k++) StdOut.println(r.sample());
-     //StdOut.println(r);
    }
 }

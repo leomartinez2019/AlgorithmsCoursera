@@ -1,14 +1,15 @@
-//import java.lang.IllegalArgumentException;
-//import java.lang.UnsupportedOperationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
-    int head = 0;
-    int tail = 0;
+    private int head = 0;
+    private int tail = 0;
 
-    Item[] q;
-    int N = 0;
+    private Item[] q;
+    private int N = 0;
 
     // construct an empty randomized queue
     public RandomizedQueue() {
@@ -69,7 +70,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       return new ListIterator();
     }
 
-    public class ListIterator implements Iterator<Item> {
+    private class ListIterator implements Iterator<Item> {
       private int indx = head;
       public boolean hasNext() {
         return q[(indx) % q.length] != null;
